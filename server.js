@@ -14,15 +14,18 @@ const server = http.createServer(async (req, res) => {
   const path = url.parse(req.url).pathname;
 
   //routes
-  if (path === "/") {
+  if (path === "/register") {
     res.writeHead(200, { "content-type": "text/html" });
     res.end(fs.readFileSync("./Login.html"));
-  } else if (path === "/enter") {
+  } else if (path === "/") {
     res.writeHead(200, { "content-type": "text/html" });
     res.end(fs.readFileSync("./enter.html"));
   } else if (path === "/home") {
     res.writeHead(200, { "content-type": "text/html" });
     res.end(fs.readFileSync("./Home.html"));
+  } else if (path === "/handlegetData.js") {
+    res.writeHead(200, { "content-type": "text/js" });
+    res.end(fs.readFileSync("./handlegetData.js"));
   }
 
   //api
