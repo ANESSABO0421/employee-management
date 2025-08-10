@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      class="bg-white text-gray-500 max-w-[350px] mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10"
+      id="EnterForm"
+    >
+      <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">
+        Welcome to EmpManagement
+      </h2>
+      <input
+        id="email"
+        class="w-full border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4"
+        type="text"
+        placeholder="Enter your email"
+        required
+      />
+      <input
+        id="password"
+        class="w-full border mt-1 border-gray-500/30 outline-none rounded-full py-2.5 px-4"
+        type="password"
+        placeholder="Enter your password"
+        required
+      />
+      <button
+        type="submit"
+        class="w-full mb-3 bg-indigo-500 hover:bg-indigo-600/90 active:scale-95 transition py-2.5 rounded-full text-white"
+      >
+        Login
+      </button>
+      <p class="text-center mt-4">
+        Already have an account?
+        <a href="#" class="text-blue-500 underline">Signup Now</a>
+      </p>
+    </form>
+    <script>
+      document
+        .getElementById("EnterForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            let isFound = await fetch("http://localhost:3000/forEnter", {
+              method: "POST",
+              body: JSON.stringify({ email, password }),
+              headers: {
+                "content-type": "text/plain",
+              },
+            });
+            if (isFound.status == 200) {
+              alert("successfully logged in");
+              window.location.href = "/home";
+            } else if (isFound.status == 500) {
+              alert("email or password is not correct");
+            } else {
+              alert("somethings wrong");
+            }
+          } catch (error) {
+            console.log("cannot connect to the server");
+          }
+        });
+    </script>
+  </body>
+</html>
