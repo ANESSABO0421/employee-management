@@ -54,13 +54,13 @@
           const password = document.getElementById("password").value;
           const file = document.getElementById("file").files[0];
 
-          // const toBase64 = (file) =>
-          //   new Promise((resolve, reject) => {
-          //     const reader = new FileReader();
-          //     reader.readAsDataURL(file);
-          //     reader.onload = () => resolve(reader.result);
-          //     reader.onerror = reject;
-          //   });
+          const toBase64 = (file) =>
+            new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = reject;
+            });
 
           let Base64File = file ? await toBase64(file) : "";
 
