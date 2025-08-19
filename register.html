@@ -62,7 +62,7 @@
           //     reader.onerror = reject;
           //   });
 
-          let Base64File = file ? await toBase64(file) : "";
+          let Base64File = file ? await toBase64(file) : " ";
 
           try {
             const addData = await fetch("http://localhost:3000/post", {
