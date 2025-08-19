@@ -7,7 +7,8 @@ async function fetchData() {
     {
       data.map((d) => {
         str += `
-            <div class="bg-white p-4 gap-5 rounded-lg shadow-md text-black max-w-xs flex flex-col ">
+        <div class="bg-white p-4 gap-5 rounded-lg shadow-md text-black max-w-xs flex flex-col ">
+            <img src='${d.image}' class="rounded"/>
             <p class="mb-2">Name:-${d.name}</p>
             <p class="mb-2">Email:-${d.email}</p>
             <p>Password:-${d.password}</p>
@@ -25,7 +26,9 @@ async function fetchData() {
 
 fetchData();
 
-function editBtn(id) {}
+function editBtn(id) {
+  window.location.href = `/edit?id=${id}`;
+}
 
 async function deleteBtn(id) {
   try {

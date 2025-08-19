@@ -3,16 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Add Employee</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body class="flex items-center justify-center h-[100vh] bg-[#10172a]">
     <form
-      class="bg-white text-gray-500 max-w-[350px] mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10"
+      class="flex flex-col bg-white text-gray-500 w-[350px] mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10 gap-5"
       id="loginForm"
     >
       <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">
-        SignUp Now
+        Add Employee
       </h2>
       <input
         id="name"
@@ -35,19 +35,14 @@
         placeholder="Enter your password"
         required
       />
-      <div class="text-right py-4">
-        <a class="text-blue-600 underline" href="#">Forgot Password</a>
-      </div>
+      <input type="file" id="file" />
+
       <button
         type="submit"
         class="w-full mb-3 bg-indigo-500 hover:bg-indigo-600/90 active:scale-95 transition py-2.5 rounded-full text-white"
       >
-        Sign up
+        Add New Employee
       </button>
-      <p class="text-center mt-4">
-        Already have an account?
-        <a href="#" class="text-blue-500 underline">Signup Now</a>
-      </p>
     </form>
     <script>
       document
@@ -57,6 +52,17 @@
           const name = document.getElementById("name").value;
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
+          const file = document.getElementById("file").files[0];
+
+          // const toBase64 = (file) =>
+          //   new Promise((resolve, reject) => {
+          //     const reader = new FileReader();
+          //     reader.readAsDataURL(file);
+          //     reader.onload = () => resolve(reader.result);
+          //     reader.onerror = reject;
+          //   });
+
+          let Base64File = file ? await toBase64(file) : "";
 
           try {
             const addData = await fetch("http://localhost:3000/post", {
@@ -64,13 +70,21 @@
               headers: {
                 "content-type": "application/json",
               },
-              body: JSON.stringify({ name, email, password }),
+              body: JSON.stringify({
+                name,
+                email,
+                password,
+                image: Base64File,
+              }),
             });
-            if (addData) {
-              alert("data has been added");
+            if (addData.ok) {
+              alert("Data has been added");
+              window.location.href = "success.html";
+            } else {
+              alert("Cannot add data");
             }
           } catch (error) {
-            alert("cannot add data");
+            alert("Cannot add data");
           }
         });
     </script>

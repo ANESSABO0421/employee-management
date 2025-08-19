@@ -47,6 +47,7 @@
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
 
+          // entering data
           try {
             let isFound = await fetch("http://localhost:3000/forEnter", {
               method: "POST",
@@ -55,6 +56,12 @@
                 "content-type": "text/plain",
               },
             });
+            const data=await isFound.json()
+            console.log(data);
+            if (data) {
+              localStorage.setItem('name',`${data.name}`)
+              localStorage.setItem('id',`${data._id}`)
+            }
             if (isFound.status == 200) {
               alert("successfully logged in");
               window.location.href = "/home";
@@ -67,6 +74,9 @@
             console.log("cannot connect to the server");
           }
         });
+
+      
+     
     </script>
   </body>
 </html>

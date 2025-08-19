@@ -16,7 +16,7 @@ const server = http.createServer(async (req, res) => {
   //routes
   if (path === "/register") {
     res.writeHead(200, { "content-type": "text/html" });
-    res.end(fs.readFileSync("./Login.html"));
+    res.end(fs.readFileSync("./register.html"));
   } else if (path === "/") {
     res.writeHead(200, { "content-type": "text/html" });
     res.end(fs.readFileSync("./enter.html"));
@@ -26,6 +26,9 @@ const server = http.createServer(async (req, res) => {
   } else if (path === "/handlegetData.js") {
     res.writeHead(200, { "content-type": "text/js" });
     res.end(fs.readFileSync("./handlegetData.js"));
+  } else if (path === "/edit") {
+    res.writeHead(200, { "content-type": "text/html" });
+    res.end(fs.readFileSync("./edit.html"));
   }
 
   //api
@@ -55,7 +58,7 @@ const server = http.createServer(async (req, res) => {
       let getData = await collections.find().toArray();
       console.log(getData);
       let stringData = JSON.stringify(getData);
-      console.log(stringData);
+      // console.log(stringData);
 
       if (getData) {
         res.writeHead(200, { "content-type": "text/plain" });
@@ -138,9 +141,8 @@ const server = http.createServer(async (req, res) => {
         if (logIn) {
           console.log("successfully loggedIn");
           res.writeHead(200, { "content-type": "text/plain" });
-          res.end("successfully logged in");
+          res.end(JSON.stringify(logIn));
         } else {
-          console.log("user not found");
           console.log("user not found");
         }
       });
